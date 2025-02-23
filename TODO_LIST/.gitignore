@@ -1,0 +1,16 @@
+# Bỏ qua thư mục node_modules
+node_modules/
+
+# Bỏ qua các file log
+*.log
+
+# Bỏ qua thư mục build hoặc output
+/dist/
+/build/
+
+# Bỏ qua file cấu hình môi trường
+.env
+
+# Bỏ qua các file hệ thống của macOS và Windows
+.DS_Store
+Thumbs.db
