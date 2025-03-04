@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="page-title">Archived Tasks</h2>
+    {% if tasks_archived %}
+        <table class="task-table">
+            <tbody>
+                {% for item in tasks_archived %}
+                <tr class="task-item">
+                    <td class="task-title-cell">
+                        {% if item.is_completed %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link completed" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% endif %}
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_deleted" class="btn btn-danger" id="delete_{{item.pk}}">Delete</a>
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_archived" class="btn btn-info" id="archive_{{item.pk}}">Restore</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-state">
+            <p>No archived tasks</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

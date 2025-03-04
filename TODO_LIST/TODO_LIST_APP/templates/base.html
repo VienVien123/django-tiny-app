@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="{% static 'base.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'archived.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'home.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'deleted.css'%}?{% now 'U' %}">
+
+   
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a class="navbar-brand" href="{% url 'home' %}">To-Do App</a>
+            <button class="navbar-toggler" type="button" onclick="toggleNavbar()">
+                <span>☰</span>
+            </button>
+            <div class="navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'archived' %}">Archived</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'deleted' %}">Deleted</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> 
+
+    <div class="container">
+        <div class="card">
+            {% block content %}
+            <!-- Example content for preview -->
+            <h2 class="mb-3">My Tasks</h2>
+            
+            <form class="d-flex mb-4">
+                <input type="text" class="form-control" placeholder="Add a new task..." style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                <button type="submit" class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Add</button>
+            </form>
+            
+            <ul class="todo-list">
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Complete project proposal</span>
+                    <div class="todo-actions">
+                        <button class="btn btn-outline btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                </li>
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Schedule team meeting</span>
+                    <div class="todo-actions">
+                        <button class="btn btn-outline btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                </li>
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Research new technologies</span>
+                    <div class="todo-actions">
+                        <button class="btn btn-outline btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                </li>
+            </ul>
+            {% endblock %}
+        </div>
+    </div>
+
+    <script>
+        function toggleNavbar() {
+            const navbarContent = document.getElementById('navbarContent');
+            navbarContent.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

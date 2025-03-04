@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="page-title">Deleted Tasks</h2>
+
+    {% if TODO_LIST_APP_deleted %}
+    <button class="btn btn-danger" id="emptyRecycleBin" onclick="openModal()">Empty recycle bin</button>
+    <div class="modal" id="modal_delete">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Empty recycle bin</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to do this?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">No</button>
+                <a class="btn btn-primary" href="{% url 'empty_recycle_bin'%}">Yes</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if tasks_deleted %}
+        <table class="task-table">
+            <tbody>
+                {% for item in tasks_deleted%}
+                <tr class="task-item">
+                    <td class="task-title-cell">
+                        {% if item.is_completed %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link completed" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% endif %}
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_archived" class="btn btn-primary" id="archive_{{item.pk}}">Archive</a>
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_deleted" class="btn btn-info" id="delete_{{item.pk}}">Restore</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-state">
+            <p>No deleted tasks</p>
+        </div>
+    {% endif %}
+</div>
+
+
+<script>
+    function openModal() {
+        document.getElementById('modal_delete').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('modal_delete').style.display = 'none';
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById('modal_delete');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
