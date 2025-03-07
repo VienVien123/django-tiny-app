@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
     <h2 class="page-title">Tasks</h2>
@@ -55,11 +55,20 @@
                 {% endfor %}
             </tbody>
         </table>
+    
     {% else %}
         <div class="empty-state">
             <p>No tasks</p>
         </div>
     {% endif %}
+
+    {% if user.is_authenticated %}
+    <h2>Chào {{ user.username }}</h2>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Đăng xuất</a>
+    {% else %}
+        <p>Bạn chưa đăng nhập. <a href="{% url 'login' %}">Đăng nhập ngay</a></p>
+    {% endif %}
+
 </div>
 
 <script>

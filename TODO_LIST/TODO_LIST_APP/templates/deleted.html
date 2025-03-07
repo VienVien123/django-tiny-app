@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <div class="container">
     <h2 class="page-title">Deleted Tasks</h2>
 
-    {% if TODO_LIST_APP_deleted %}
+    {% if tasks_deleted %}
     <button class="btn btn-danger" id="emptyRecycleBin" onclick="openModal()">Empty recycle bin</button>
     <div class="modal" id="modal_delete">
         <div class="modal-content">
@@ -22,7 +21,7 @@
     </div>
     {% endif %}
 
-    {% if tasks_deleted %}
+    {% if tasks_deleted%}
         <table class="task-table">
             <tbody>
                 {% for item in tasks_deleted%}

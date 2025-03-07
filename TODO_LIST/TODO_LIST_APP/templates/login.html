@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Đăng nhập</h2>
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+        </form>
+        <div class="auth-footer">
+            <p>Chưa có tài khoản? <a href="{% url 'register' %}">Đăng ký ngay</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+#admin-panel {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.access-denied {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 50px;
+}
+
+.access-denied h2 {
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#users-table th, 
+#users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#users-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+}
+
+#users-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.user-status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-blocked {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.admin-badge {
+    background-color: #cfe2ff;
+    color: #0a58ca;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.user-badge {
+    background-color: #e2e3e5;
+    color: #41464b;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.user-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.user-actions button {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+#admin-message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    display: none;
+}
+
+#admin-message.success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #a3cfbb;
+    display: block;
+}
+
+#admin-message.error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    display: block;
+}

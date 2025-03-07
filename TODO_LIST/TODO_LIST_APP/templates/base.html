@@ -1,4 +1,6 @@
+{% comment %} {% load ba%} {% endcomment %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +11,10 @@
     <link rel="stylesheet" href="{% static 'archived.css'%}?{% now 'U' %}">
     <link rel="stylesheet" href="{% static 'home.css'%}?{% now 'U' %}">
     <link rel="stylesheet" href="{% static 'deleted.css'%}?{% now 'U' %}">
+    l<ink rel="stylesheet" href="{% static 'auth.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'admin.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'register.css'%}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'login.css'%}?{% now 'U' %}">
 
    
 </head>
@@ -33,46 +39,19 @@
                     </li>
                 </ul>
             </div>
+            {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
         </div>
     </nav> 
 
+    
     <div class="container">
         <div class="card">
             {% block content %}
-            <!-- Example content for preview -->
-            <h2 class="mb-3">My Tasks</h2>
-            
-            <form class="d-flex mb-4">
-                <input type="text" class="form-control" placeholder="Add a new task..." style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                <button type="submit" class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Add</button>
-            </form>
-            
-            <ul class="todo-list">
-                <li class="todo-item">
-                    <input type="checkbox" class="todo-checkbox">
-                    <span class="todo-text">Complete project proposal</span>
-                    <div class="todo-actions">
-                        <button class="btn btn-outline btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </li>
-                <li class="todo-item">
-                    <input type="checkbox" class="todo-checkbox">
-                    <span class="todo-text">Schedule team meeting</span>
-                    <div class="todo-actions">
-                        <button class="btn btn-outline btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </li>
-                <li class="todo-item">
-                    <input type="checkbox" class="todo-checkbox">
-                    <span class="todo-text">Research new technologies</span>
-                    <div class="todo-actions">
-                        <button class="btn btn-outline btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </li>
-            </ul>
             {% endblock %}
         </div>
     </div>
