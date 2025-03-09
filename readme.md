@@ -74,6 +74,9 @@ Mở terminal hoặc command prompt và chạy lệnh:
 Sau đó, mở trình duyệt và truy cập **[http://127.0.0.1:8000](http://127.0.0.1:8000)** để sử dụng ứng dụng.
 
 ---
+### Note
+1. docker compose up --build
+2. docker compose up --build -d
 
 ## 📌 Công nghệ sử dụng
 - **Python** (Django Framework)
