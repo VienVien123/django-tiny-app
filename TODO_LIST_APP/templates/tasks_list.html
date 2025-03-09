@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Quản lý Bài Viết/Nhiệm Vụ</h2>
+    <form method="POST" action="{% url 'delete_multiple_posts' %}">
+        {% csrf_token %}
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>Tiêu đề</th>
+                    <th>Nội dung</th>
+                    <th>Ngày tạo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td><input type="checkbox" name="post_ids" value="{{ post.id }}"></td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.content }}</td>
+                    <td>{{ post.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <button type="submit" class="btn btn-danger">Xóa đã chọn</button>
+    </form>
+</div>
+
+<!-- Script để chọn tất cả -->
+<script>
+    document.getElementById("select-all").add

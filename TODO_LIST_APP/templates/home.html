@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<div class="container">
+    <h2 class="page-title">Tasks</h2>
+    <form method="POST" action="{% url 'add' %}" enctype="multipart/form-data" class="add-task-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+        </div>
+        <button class="btn btn-success">Add</button>
+    </form>
+
+    {% if tasks%}
+        <table class="task-table">
+            <tbody>
+                {% for item in tasks %}
+                <tr class="task-item">
+                    <td class="task-title-cell">
+                        {% if item.is_completed %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link completed" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'update' item.pk %}?action=is_completed" class="task-link" id="completed_{{item.pk}}">
+                            <span class="task-title">{{ item.title }}</span>
+                        </a>
+                        {% endif %}
+                    </td>
+                    <td class="task-action-cell">
+                        <button class="btn btn-warning" id="edit_{{item.pk}}" onclick="openModal('modal_{{item.pk}}')">Edit</button>
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_deleted" class="btn btn-danger" id="delete_{{item.pk}}">Delete</a>
+                    </td>
+                    <td class="task-action-cell">
+                        <a href="{% url 'update' item.pk %}?action=is_archived" class="btn btn-primary" id="archive_{{item.pk}}">Archive</a>
+                    </td>
+                </tr>
+                <div class="modal" id="modal_{{item.pk}}">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'update' item.pk %}" enctype="multipart/form-data" class="edit-task-form">
+                                {% csrf_token %}
+                                <label class="form-label" id="label_{{ item.pk }}">Current title: {{ item.title }}</label>
+                                {{ form.as_p }}
+                                <div class="modal-actions">
+                                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal_{{item.pk}}')">Close</button>
+                                    <button class="btn btn-success">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% else %}
+        <div class="empty-state">
+            <p>No tasks</p>
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <h2>Chào {{ user.username }}</h2>
+    <a href="{% url 'login' %}" class="btn btn-danger">Đăng xuất</a>
+    {% else %}
+        <p>Bạn chưa đăng nhập. <a href="{% url 'login' %}">Đăng nhập ngay</a></p>
+    {% endif %}
+
+</div>
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
